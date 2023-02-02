@@ -1,79 +1,126 @@
 {
   "data": {
-    "mal_id": 53240,
-    "url": "https://myanimelist.net/anime/53240/Naruto__Road_of_Naruto",
+    "mal_id": 33,
+    "url": "https://myanimelist.net/anime/33/Kenpuu_Denki_Berserk",
     "images": {
       "jpg": {
-        "image_url": "https://cdn.myanimelist.net/images/anime/1207/128768.jpg",
-        "small_image_url": "https://cdn.myanimelist.net/images/anime/1207/128768t.jpg",
-        "large_image_url": "https://cdn.myanimelist.net/images/anime/1207/128768l.jpg"
+        "image_url": "https://cdn.myanimelist.net/images/anime/1384/119988.jpg",
+        "small_image_url": "https://cdn.myanimelist.net/images/anime/1384/119988t.jpg",
+        "large_image_url": "https://cdn.myanimelist.net/images/anime/1384/119988l.jpg"
       },
       "webp": {
-        "image_url": "https://cdn.myanimelist.net/images/anime/1207/128768.webp",
-        "small_image_url": "https://cdn.myanimelist.net/images/anime/1207/128768t.webp",
-        "large_image_url": "https://cdn.myanimelist.net/images/anime/1207/128768l.webp"
+        "image_url": "https://cdn.myanimelist.net/images/anime/1384/119988.webp",
+        "small_image_url": "https://cdn.myanimelist.net/images/anime/1384/119988t.webp",
+        "large_image_url": "https://cdn.myanimelist.net/images/anime/1384/119988l.webp"
       }
     },
     "trailer": {
-      "youtube_id": null,
-      "url": null,
-      "embed_url": null,
+      "youtube_id": "5g5uPsKDGYg",
+      "url": "https://www.youtube.com/watch?v=5g5uPsKDGYg",
+      "embed_url": "https://www.youtube.com/embed/5g5uPsKDGYg?enablejsapi=1&wmode=opaque&autoplay=1",
       "images": {
-        "image_url": null,
-        "small_image_url": null,
-        "medium_image_url": null,
-        "large_image_url": null,
-        "maximum_image_url": null
+        "image_url": "https://img.youtube.com/vi/5g5uPsKDGYg/default.jpg",
+        "small_image_url": "https://img.youtube.com/vi/5g5uPsKDGYg/sddefault.jpg",
+        "medium_image_url": "https://img.youtube.com/vi/5g5uPsKDGYg/mqdefault.jpg",
+        "large_image_url": "https://img.youtube.com/vi/5g5uPsKDGYg/hqdefault.jpg",
+        "maximum_image_url": "https://img.youtube.com/vi/5g5uPsKDGYg/maxresdefault.jpg"
       }
     },
-    "approved": false,
+    "approved": true,
     "titles": [
-      { "type": "Default", "title": "Naruto: Road of Naruto" },
+      { "type": "Default", "title": "Kenpuu Denki Berserk" },
+      { "type": "Synonym", "title": "Berserk: The Chronicles of Wind Blades" },
+      { "type": "Synonym", "title": "Sword-Wind Chronicle Berserk" },
       {
         "type": "Japanese",
-        "title": "\u300eNARUTO-\u30ca\u30eb\u30c8-\u300f20\u5468\u5e74\u8a18\u5ff5"
+        "title": "\u5263\u98a8\u4f1d\u5947\u30d9\u30eb\u30bb\u30eb\u30af"
       },
-      { "type": "English", "title": "Naruto: 20th Anniversary" }
+      { "type": "English", "title": "Berserk" },
+      { "type": "German", "title": "Berserk" },
+      { "type": "Spanish", "title": "Berserk" },
+      { "type": "French", "title": "Berserk" }
     ],
-    "title": "Naruto: Road of Naruto",
-    "title_english": "Naruto: 20th Anniversary",
-    "title_japanese": "\u300eNARUTO-\u30ca\u30eb\u30c8-\u300f20\u5468\u5e74\u8a18\u5ff5",
-    "title_synonyms": [],
-    "type": "Special",
+    "title": "Kenpuu Denki Berserk",
+    "title_english": "Berserk",
+    "title_japanese": "\u5263\u98a8\u4f1d\u5947\u30d9\u30eb\u30bb\u30eb\u30af",
+    "title_synonyms": [
+      "Berserk: The Chronicles of Wind Blades",
+      "Sword-Wind Chronicle Berserk"
+    ],
+    "type": "TV",
     "source": "Manga",
-    "episodes": 1,
+    "episodes": 25,
     "status": "Finished Airing",
     "airing": false,
     "aired": {
-      "from": "2022-10-03T00:00:00+00:00",
-      "to": null,
+      "from": "1997-10-08T00:00:00+00:00",
+      "to": "1998-04-01T00:00:00+00:00",
       "prop": {
-        "from": { "day": 3, "month": 10, "year": 2022 },
-        "to": { "day": null, "month": null, "year": null }
+        "from": { "day": 8, "month": 10, "year": 1997 },
+        "to": { "day": 1, "month": 4, "year": 1998 }
       },
-      "string": "Oct 3, 2022 to ?"
+      "string": "Oct 8, 1997 to Apr 1, 1998"
     },
-    "duration": "9 min",
-    "rating": "PG-13 - Teens 13 or older",
-    "score": null,
-    "scored_by": null,
-    "rank": 0,
-    "popularity": 0,
-    "members": 0,
-    "favorites": 0,
-    "synopsis": null,
-    "background": null,
-    "season": null,
-    "year": null,
+    "duration": "25 min per ep",
+    "rating": "R+ - Mild Nudity",
+    "score": 8.55,
+    "scored_by": 311167,
+    "rank": 99,
+    "popularity": 328,
+    "members": 584528,
+    "favorites": 24268,
+    "synopsis": "Guts, a man who will one day be known as the Black Swordsman, is a young traveling mercenary characterized by the large greatsword he carries. He accepts jobs that offer the most money, but he never stays with one group for long\u2014until he encounters the Band of the Hawk. Ambushed after completing a job, Guts crushes many of its members in combat. Griffith, The Band of the Falcon's leader and founder, takes an interest in Guts and duels him. While the others are no match for Guts, Griffith defeats him in one blow.\n\nIncapacitated and taken into the Band of the Hawk's camp to recover, Guts wakes up two days later. He confronts Griffith, and the two duel yet again, only this time with a condition: Guts will join the Band of the Falcon if he loses. Due to his fresh injuries, Guts loses the fight and is inducted by Griffith.\n\nIn three years' time, Guts has become one of the Band of the Hawk's commanders. On the battlefield, his combat prowess is second only to Griffith as he takes on large groups of enemies all on his own. With Guts' immense strength and Griffith's leadership, the Band of the Hawk dominate every battle they partake in. But something menacing lurks in the shadows, threatening to change Guts' life forever.\n\n[Written by MAL Rewrite]",
+    "background": "Kenpuu Denki Berserk adapts the first 12 volumes and a part of the 13th volume of the manga. While the story remains fairly loyal to the source material, heavy modifications were made to exclude some of the more graphic depictions of violence, as well as characters and other content that could not be covered within the length of the anime\u2019s running time. These changes were approved by the series creator himself. The series was released on DVD by Media Blasters in six volumes from May 28, 2002 to May 27, 2003. The company also released a complete collection on November 16, 2004; it was later remastered by AnimeWorks and published on March 10, 2009. An art book\u2014titled Berserk: Kenpuu Denki - Kanzen Kaiseki-sho\u2014containing sketches and behind-the-scenes information on the anime was published by Hakusensha on December 9, 1998.",
+    "season": "fall",
+    "year": 1997,
     "broadcast": {
-      "day": null,
-      "time": null,
-      "timezone": null,
-      "string": null
+      "day": "Wednesdays",
+      "time": "01:45",
+      "timezone": "Asia/Tokyo",
+      "string": "Wednesdays at 01:45 (JST)"
     },
-    "producers": [],
-    "licensors": [],
-    "studios": [],
+    "producers": [
+      {
+        "mal_id": 29,
+        "type": "anime",
+        "name": "VAP",
+        "url": "https://myanimelist.net/anime/producer/29/VAP"
+      },
+      {
+        "mal_id": 148,
+        "type": "anime",
+        "name": "Hakusensha",
+        "url": "https://myanimelist.net/anime/producer/148/Hakusensha"
+      },
+      {
+        "mal_id": 1003,
+        "type": "anime",
+        "name": "Nippon Television Network",
+        "url": "https://myanimelist.net/anime/producer/1003/Nippon_Television_Network"
+      }
+    ],
+    "licensors": [
+      {
+        "mal_id": 250,
+        "type": "anime",
+        "name": "Media Blasters",
+        "url": "https://myanimelist.net/anime/producer/250/Media_Blasters"
+      },
+      {
+        "mal_id": 595,
+        "type": "anime",
+        "name": "NYAV Post",
+        "url": "https://myanimelist.net/anime/producer/595/NYAV_Post"
+      }
+    ],
+    "studios": [
+      {
+        "mal_id": 28,
+        "type": "anime",
+        "name": "OLM",
+        "url": "https://myanimelist.net/anime/producer/28/OLM"
+      }
+    ],
     "genres": [
       {
         "mal_id": 1,
@@ -82,28 +129,117 @@
         "url": "https://myanimelist.net/anime/genre/1/Action"
       },
       {
+        "mal_id": 2,
+        "type": "anime",
+        "name": "Adventure",
+        "url": "https://myanimelist.net/anime/genre/2/Adventure"
+      },
+      {
+        "mal_id": 8,
+        "type": "anime",
+        "name": "Drama",
+        "url": "https://myanimelist.net/anime/genre/8/Drama"
+      },
+      {
         "mal_id": 10,
         "type": "anime",
         "name": "Fantasy",
         "url": "https://myanimelist.net/anime/genre/10/Fantasy"
+      },
+      {
+        "mal_id": 14,
+        "type": "anime",
+        "name": "Horror",
+        "url": "https://myanimelist.net/anime/genre/14/Horror"
       }
     ],
     "explicit_genres": [],
     "themes": [
       {
-        "mal_id": 17,
+        "mal_id": 58,
         "type": "anime",
-        "name": "Martial Arts",
-        "url": "https://myanimelist.net/anime/genre/17/Martial_Arts"
+        "name": "Gore",
+        "url": "https://myanimelist.net/anime/genre/58/Gore"
+      },
+      {
+        "mal_id": 38,
+        "type": "anime",
+        "name": "Military",
+        "url": "https://myanimelist.net/anime/genre/38/Military"
+      },
+      {
+        "mal_id": 6,
+        "type": "anime",
+        "name": "Mythology",
+        "url": "https://myanimelist.net/anime/genre/6/Mythology"
       }
     ],
     "demographics": [
       {
-        "mal_id": 27,
+        "mal_id": 42,
         "type": "anime",
-        "name": "Shounen",
-        "url": "https://myanimelist.net/anime/genre/27/Shounen"
+        "name": "Seinen",
+        "url": "https://myanimelist.net/anime/genre/42/Seinen"
       }
-    ]
+    ],
+    "relations": [
+      {
+        "relation": "Adaptation",
+        "entry": [
+          {
+            "mal_id": 2,
+            "type": "manga",
+            "name": "Berserk",
+            "url": "https://myanimelist.net/manga/2/Berserk"
+          }
+        ]
+      },
+      {
+        "relation": "Alternative version",
+        "entry": [
+          {
+            "mal_id": 10218,
+            "type": "anime",
+            "name": "Berserk: Ougon Jidai-hen I - Haou no Tamago",
+            "url": "https://myanimelist.net/anime/10218/Berserk__Ougon_Jidai-hen_I_-_Haou_no_Tamago"
+          },
+          {
+            "mal_id": 12113,
+            "type": "anime",
+            "name": "Berserk: Ougon Jidai-hen II - Doldrey Kouryaku",
+            "url": "https://myanimelist.net/anime/12113/Berserk__Ougon_Jidai-hen_II_-_Doldrey_Kouryaku"
+          },
+          {
+            "mal_id": 12115,
+            "type": "anime",
+            "name": "Berserk: Ougon Jidai-hen III - Kourin",
+            "url": "https://myanimelist.net/anime/12115/Berserk__Ougon_Jidai-hen_III_-_Kourin"
+          },
+          {
+            "mal_id": 52976,
+            "type": "anime",
+            "name": "Berserk: Ougon Jidai-hen - Memorial Edition",
+            "url": "https://myanimelist.net/anime/52976/Berserk__Ougon_Jidai-hen_-_Memorial_Edition"
+          }
+        ]
+      },
+      {
+        "relation": "Sequel",
+        "entry": [
+          {
+            "mal_id": 32379,
+            "type": "anime",
+            "name": "Berserk",
+            "url": "https://myanimelist.net/anime/32379/Berserk"
+          }
+        ]
+      }
+    ],
+    "theme": {
+      "openings": ["\"Tell Me Why\" by PENPALS"],
+      "endings": ["\"Waiting So Long\" by Silver Fins"]
+    },
+    "external": [],
+    "streaming": []
   }
 }
