@@ -1,21 +1,36 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import results from '@/data/animeList.json'
-import { AnimeCard } from 'features/Home/components'
-import { useAnimeList } from 'features/Home/hooks'
-import { useState } from 'react'
+import { AnimeCard } from 'features/AnimeSearch/components'
+import { useAnimeList } from 'features/AnimeSearch/hooks'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { Pagination, SearchBar } from 'components'
+import { useDebouncedCallback } from 'use-debounce';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const animes = results.data
   const [query, setQuery] = useState('')
   const [page, setPage] = useState(1)
   const { data, isLoading, isFetching, isInitialLoading } = useAnimeList(query, page)
+  console.log({ data })
+  const animes = data ?? results
 
-  const test = (a = 2) => a
-  test()
+  const debounced = useDebouncedCallback(value => {
+    if (value)
+      setQuery(value)
+  }, 500)
+  const updateQuery = (e: ChangeEvent<HTMLInputElement>) => {
+    debounced(e.target.value)
+  }
+
+  const isDirty = useRef(false)
+
+  useEffect(() => {
+    if (isInitialLoading && !isDirty.current) {
+      isDirty.current = true
+    }
+  }, [isInitialLoading])
 
   return (
     <>
@@ -27,16 +42,31 @@ export default function Home() {
       </Head>
       <main className='mx-auto px-4 pb-4 center flex-col max-w-5xl'>
 
-        <SearchBar placeholder="Search Animes..." />
+        <SearchBar placeholder="Search Animes..."
+          onChange={ updateQuery }
+        />
+        <div>
+          { isLoading ? 'is loading true' : 'is loading false' }
 
+        </div>
+        <div>
+          { isFetching ? 'isFetching true' : 'isFetching false' }
+
+        </div>
+        <div>
+          { isInitialLoading ? 'isInitialLoading true' : 'isInitialLoading false' }
+
+        </div>
         <div className='grid gap-8 py-4 mt-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4' >
-          { animes.map(({ title, mal_id, images: { jpg: { large_image_url } } }) =>
+          { animes.data.map(({ title, mal_id, images: { jpg: { large_image_url } } }, index) =>
           (
-            <AnimeCard key={ mal_id } id={ mal_id } title={ title } imageUrl={ large_image_url } />
+            <AnimeCard key={ index } id={ mal_id } title={ title } imageUrl={ large_image_url } />
           )
           ) }
         </div>
-        <Pagination currentPage={ page } totalPages={ 2 } setPage={ setPage } />
+
+
+        <Pagination currentPage={ page } totalPages={ 5 } setPage={ setPage } />
       </main>
     </>
   )
