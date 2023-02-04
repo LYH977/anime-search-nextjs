@@ -3,9 +3,8 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import detail from '@/data/animeDetail.json'
 import Image from 'next/image'
-import Board from 'features/Anime/components/Board'
-import Badge from 'features/Anime/components/Badge'
-import Button from 'components/Button'
+import { Board, Badge } from 'features/AnimeDetails/components'
+import { Button } from 'components'
 
 const Anime = () => {
     const router = useRouter()
