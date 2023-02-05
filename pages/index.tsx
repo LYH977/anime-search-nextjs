@@ -6,15 +6,46 @@ import { useAnimeList } from 'features/AnimeSearch/hooks'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { Pagination, SearchBar } from 'components'
 import { useDebouncedCallback } from 'use-debounce';
+import { fetchRecomendedAnimes } from 'features/AnimeSearch/services'
+import { AnimeRecommendationProps, AnimeSingleResultProps } from 'features/AnimeSearch/types'
+import { useRouter } from 'next/router'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export async function getServerSideProps({ req, res, resolvedUrl }: any) {
+  const data = []
+  const response = await fetch('https://api.jikan.moe/v4/recommendations/anime')
+  const animes = await response.json()
+  // const router = useRouter()
+  console.log(resolvedUrl)
+
+  for (const temp of animes.data) {
+    data.push(...temp.entry)
+  }
+
+
+
+  return {
+    props: {
+      animes: data.slice(0, 10)
+    }
+  }
+}
+
+
+export default function Home(props: {
+  animes: Pick<
+    AnimeSingleResultProps,
+    'mal_id' | 'images' | 'title' | 'url'
+  >[]
+}) {
   const [query, setQuery] = useState('')
   const [page, setPage] = useState(1)
   const { data, isLoading, isFetching, isInitialLoading } = useAnimeList(query, page)
-  console.log({ data })
-  const animes = data ?? results
+  // console.log({ data })
+  // const animes = results.data
+  const animes = data?.data ?? props.animes
+  console.log({ data, props })
 
   const debounced = useDebouncedCallback(value => {
     if (value)
@@ -24,13 +55,6 @@ export default function Home() {
     debounced(e.target.value)
   }
 
-  const isDirty = useRef(false)
-
-  useEffect(() => {
-    if (isInitialLoading && !isDirty.current) {
-      isDirty.current = true
-    }
-  }, [isInitialLoading])
 
   return (
     <>
@@ -43,7 +67,7 @@ export default function Home() {
       <main className='mx-auto px-4 pb-4 center flex-col max-w-5xl'>
 
         <SearchBar placeholder="Search Animes..."
-          onChange={ updateQuery }
+          onChange={ updateQuery } id='searchBar'
         />
         <div>
           { isLoading ? 'is loading true' : 'is loading false' }
@@ -58,7 +82,7 @@ export default function Home() {
 
         </div>
         <div className='grid gap-8 py-4 mt-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4' >
-          { animes.data.map(({ title, mal_id, images: { jpg: { large_image_url } } }, index) =>
+          { animes.map(({ title, mal_id, images: { jpg: { large_image_url } } }, index) =>
           (
             <AnimeCard key={ index } id={ mal_id } title={ title } imageUrl={ large_image_url } />
           )
@@ -66,7 +90,7 @@ export default function Home() {
         </div>
 
 
-        <Pagination currentPage={ page } totalPages={ 5 } setPage={ setPage } />
+        { data && <Pagination currentPage={ page } totalPages={ data.pagination.last_visible_page } setPage={ setPage } /> }
       </main>
     </>
   )

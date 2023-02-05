@@ -1,21 +1,12 @@
-import ky from 'ky-universal'
 import { useQuery } from '@tanstack/react-query'
-import { JIKAN_DOMAIN } from 'utils/constant'
-import { AnimeSearchFullResultsProps } from 'features/AnimeSearch/type'
+import { fetchQueriedAnimes } from 'features/AnimeSearch/services'
 
-const fetchAnimeList = async (
-  query: string,
-  page: number
-): Promise<AnimeSearchFullResultsProps> => {
-  return await ky(`${JIKAN_DOMAIN}?q=${query}&page=${page}`).json()
-}
-
-const useAnimeList = (query: string, page: number = 1) => {
+export const useAnimeList = (query: string, page: number = 1) => {
   return useQuery({
     queryKey: ['animeList', query, page],
-    queryFn: () => fetchAnimeList(query, page),
+    queryFn: () => fetchQueriedAnimes(query, page),
     enabled: !!query,
+    keepPreviousData: true,
+    initialData: undefined,
   })
 }
-
-export { useAnimeList, fetchAnimeList }
