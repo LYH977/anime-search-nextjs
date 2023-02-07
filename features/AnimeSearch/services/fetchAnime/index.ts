@@ -1,6 +1,7 @@
 import {
+  AnimeFilterResultsProps,
   AnimeFullResultsProps,
-  AnimeRecommendationProps,
+  AnimeRecommendationResponseProps,
 } from 'features/AnimeSearch/types'
 import ky from 'ky-universal'
 import { JIKAN_DOMAIN } from 'utils/constant'
@@ -8,11 +9,21 @@ import { JIKAN_DOMAIN } from 'utils/constant'
 export const fetchQueriedAnimes = async (
   query: string,
   page: number
-): Promise<AnimeFullResultsProps> => {
-  return await ky(`${JIKAN_DOMAIN}/anime?q=${query}&page=${page}`).json()
+): Promise<AnimeFilterResultsProps> => {
+  const result: AnimeFullResultsProps = await ky(
+    `${JIKAN_DOMAIN}/anime?q=${query}&page=${page}`
+  ).json()
+  return {
+    totalPages: result.pagination.last_visible_page,
+    animes: result.data.map((anime) => ({
+      imageUrl: anime.images.jpg.large_image_url,
+      mal_id: anime.mal_id,
+      title: anime.title_english ?? anime.title,
+    })),
+  }
 }
 
 export const fetchRecomendedAnimes =
-  async (): Promise<AnimeRecommendationProps> => {
+  async (): Promise<AnimeRecommendationResponseProps> => {
     return await ky(`${JIKAN_DOMAIN}/recommendations/anime`).json()
   }

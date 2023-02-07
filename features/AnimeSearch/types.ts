@@ -26,6 +26,7 @@ export type AnimeSingleResultProps = {
     }
   }
   title: string
+  title_english: string
   score: null | number
   rank: null | number
   popularity: null | number
@@ -38,13 +39,25 @@ export type AnimeSingleResultProps = {
   }[]
 }
 
-export type AnimeRecommendationProps = {
+export type AnimeItemProps = {
+  mal_id: number
+  title: string
+  imageUrl: string
+}
+
+export type AnimeFilterResultsProps = {
+  totalPages: number
+  animes: AnimeItemProps[]
+}
+
+export type AnimeRecommendationResponseProps = {
   pagination: Pick<PaginationProps, 'last_visible_page' | 'has_next_page'>
   data: {
     [key: string]: any
-    entry: Pick<
-      AnimeSingleResultProps,
-      'mal_idmal_id' | 'images' | 'title' | 'url'
-    >
-  }
+    entry: AnimeRecommendationSingleResultProps[]
+  }[]
 }
+export type AnimeRecommendationSingleResultProps = Pick<
+  AnimeSingleResultProps,
+  'mal_id' | 'images' | 'title' | 'url'
+>
