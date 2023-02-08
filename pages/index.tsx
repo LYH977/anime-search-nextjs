@@ -10,8 +10,7 @@ import { useRouter } from 'next/router'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export async function getServerSideProps({ req, res, resolvedUrl }: any) {
-
+export async function getServerSideProps({ resolvedUrl }: any) {
 
   const queryParam = resolvedUrl.match(/q=[^&]*(&|$)/)
   if (queryParam) {
@@ -32,17 +31,20 @@ export async function getServerSideProps({ req, res, resolvedUrl }: any) {
 
   }
   const data: any = []
+  const uniqueMap: { [key: string]: any } = {}
 
   const response = await fetch('https://api.jikan.moe/v4/recommendations/anime')
   const animes: AnimeRecommendationResponseProps = await response.json()
   for (const temp of animes.data.slice(0, 10)) {
-    console.log(temp.entry)
-    temp.entry.forEach((x) => {
-      data.push({
-        mal_id: x.mal_id,
-        title: x.title,
-        imageUrl: x.images.jpg.large_image_url
-      })
+    temp.entry.forEach(({ mal_id, title, images: { jpg: { large_image_url } } }) => {
+      if (!uniqueMap[mal_id]) {
+        uniqueMap[mal_id] = true
+        data.push({
+          mal_id,
+          title,
+          imageUrl: large_image_url
+        })
+      }
     })
 
   }
@@ -67,12 +69,12 @@ export default function Home(serverProps: AnimeFilterResultsProps) {
     }
     return initialQuery ?? ''
   })
-  console.log({ query })
   const [page, setPage] = useState(1)
   const { data: clientData, isLoading, isFetching } = useAnimeList(query, page, serverProps)
   const myData = clientData ?? serverProps
-  const resultText = myData.animes.length > 0 ? `Results for "${query}"` : `No Results for "${query}"`
-  const heading = clientData ? resultText : 'Recommendation'
+  const animesLength = myData.animes.length
+  const resultText = `${animesLength} result${animesLength > 1 ? 's' : ''} for "${query}"`
+  const heading = clientData ? resultText : 'Anime Recommendation'
 
   // console.log({ clientData, serverProps, data: myData })
 
@@ -98,18 +100,17 @@ export default function Home(serverProps: AnimeFilterResultsProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className='mx-auto px-4 pb-4 center flex-col max-w-5xl'>
-
+        <h1 className='font-bold my-4 text-lg'>Search your favourite animes here!</h1>
         <SearchBar placeholder="Search Animes..."
-          onChange={ updateQuery } id='searchBar' defaultValue={ query }
+          onChange={ updateQuery } id='searchBar' defaultValue={ query } isLoading={ isFetching }
         />
 
-        <div>
-          { isFetching ? 'LOADING...' : heading }
+        <p className='self-start mt-4 '>
+          { heading }
+        </p>
 
-        </div>
-
-        <div className='grid gap-8 py-4 mt-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4' >
-          { myData.animes.map(({ title, mal_id, imageUrl }, index) =>
+        <div className='grid gap-8 py-4 mb-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4' >
+          { myData.animes.map(({ title, mal_id, imageUrl }) =>
           (
             <AnimeCard key={ mal_id } id={ mal_id } title={ title } imageUrl={ imageUrl } />
           )

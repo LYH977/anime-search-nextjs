@@ -1,7 +1,19 @@
+import { LoadingSpinner } from 'assets/LoadingSpinner'
 import React from 'react'
 
-export const SearchBar = (props: React.ComponentProps<'input'>) => {
+type SearchBarProps = {
+    isLoading: boolean
+} & React.ComponentProps<'input'>
+
+export const SearchBar = ({ isLoading, ...rest }: SearchBarProps) => {
     return (
-        <input type="search" id="default-search" className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-100 focus:ring-blue-500 focus:border-blue-500" { ...props } />)
+        <div className='bg-red-200 relative w-full'>
+            { isLoading && <div role='status'>
+                <span className='absolute top-4 left-3 text-xs'><LoadingSpinner /></span>
+                <span className="sr-only">Loading...</span>
+            </div> }
+
+            <input type="search" id="default-search" className="block p-4 w-full pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-100 focus-visible:ring-blue-500 focus-visible:border-blue-500 outline-none" { ...rest } />
+        </div>)
 }
 
