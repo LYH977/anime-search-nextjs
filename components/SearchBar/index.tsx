@@ -7,7 +7,7 @@ type SearchBarProps = {
 
 export const SearchBar = ({ isLoading, ...rest }: SearchBarProps) => {
     return (
-        <div className='bg-red-200 relative w-full'>
+        <div className='relative w-full'>
             { isLoading && <div role='status'>
                 <span className='absolute top-4 left-3 text-xs'><LoadingSpinner /></span>
                 <span className="sr-only">Loading...</span>

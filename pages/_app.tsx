@@ -7,15 +7,28 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { useState } from 'react'
+import { DarkModeToggle } from 'layouts/DarkModeToggle'
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient())
 
   return (
     <QueryClientProvider client={ queryClient }>
-      <Navbar />
+      <Test />
       <Component { ...pageProps } />
       <ReactQueryDevtools />
     </QueryClientProvider>
+  )
+}
+
+
+const Test = () => {
+  const [isDarkMode, setisDarkMode] = useState(false)
+
+  return (
+    <>
+      <DarkModeToggle isDarkMode={ isDarkMode } />
+      <Navbar setisDarkMode={ setisDarkMode } />
+    </>
   )
 }

@@ -13,3 +13,7 @@
 * {
   scroll-behavior: smooth;
 }
+
+body {
+  background-color: white;
+}
