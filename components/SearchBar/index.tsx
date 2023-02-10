@@ -1,4 +1,4 @@
-import { LoadingSpinner } from 'assets/LoadingSpinner'
+import { LoadingSpinner } from 'assets'
 import React from 'react'
 
 type SearchBarProps = {

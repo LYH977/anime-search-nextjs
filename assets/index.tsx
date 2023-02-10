@@ -1,2 +1,5 @@
 export * from './NextArrow'
 export * from './PrevArrow'
+export * from './Sun'
+export * from './Moon'
+export * from './LoadingSpinner'

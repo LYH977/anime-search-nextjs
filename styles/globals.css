@@ -8,10 +8,21 @@
     justify-content: center;
     align-items: center;
   }
+
+  .primaryColor {
+    background-image: linear-gradient(
+      to right,
+      rgb(29, 78, 216),
+      rgb(30, 64, 175),
+      rgb(17, 24, 39)
+    );
+    background-color: rgb(37, 144, 235);
+  }
 }
 
 * {
   scroll-behavior: smooth;
+  box-sizing: border-box;
 }
 
 body {
