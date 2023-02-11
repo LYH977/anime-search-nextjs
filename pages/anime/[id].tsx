@@ -1,10 +1,11 @@
-import Head from 'next/head'
 import React from 'react'
+import Head from 'next/head'
 import Image from 'next/image'
-import { Board, Badge } from 'features/AnimeDetails/components'
-import { Button } from 'components'
 import Router from 'next/router'
-import { AnimeSingleResultProps } from 'features/AnimeSearch/types'
+
+import { Button } from 'components'
+import { Article } from 'features/AnimeDetails/components'
+import { AnimeSingleResultProps } from 'types'
 
 export async function getStaticPaths() {
     return {
@@ -16,7 +17,6 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { id } }: any) {
     const response = await fetch(`https://api.jikan.moe/v4/anime/${id}/full`)
     const data = await response.json()
-
     return {
         props: {
             anime: data
@@ -43,23 +43,7 @@ const Anime = ({ anime }: AnimeProps) => {
             <main className='mx-auto px-4 pb-4 center flex-col max-w-5xl'>
                 <div className='center flex-col gap-4 md:flex-row md:items-start'>
                     <Image src={ anime.data.images.jpg.large_image_url } alt={ anime.data.title } width={ 200 } height={ 200 } className='isolate' />
-                    <article aria-labelledby='detail-title'>
-                        <header >
-                            <h1 id='detail-title' className='font-bold text-center md:text-start'>{ anime.data.title }</h1>
-                            <div className='flex justify-center gap-2 mt-4 flex-wrap md:justify-start '>
-                                { anime.data.genres.map(({ name }) => (
-                                    <Badge key={ name } name={ name } />
-                                )) }
-                            </div>
-                        </header>
-                        <p className='my-4'>{ anime.data.synopsis }</p>
-                        <footer className='flex gap-3 flex-wrap justify-center md:justify-start'>
-                            <Board category='episodes' value={ anime.data.episodes } />
-                            <Board category='popularity' value={ anime.data.popularity ?? '-' } />
-                            <Board category='score' value={ `#${anime.data.score}` } />
-                            <Board category='rank' value={ `#${anime.data.rank}` } />
-                        </footer>
-                    </article>
+                    <Article anime={ anime.data } />
                 </div>
                 <Button extraClassName='mt-4 mr-auto' onClick={ () => { Router.back() } }>BACK</Button>
             </main>

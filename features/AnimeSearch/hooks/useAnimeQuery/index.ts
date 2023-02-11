@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
+import { useDebouncedCallback } from 'use-debounce'
 
-export const useAnimeQuery = () => {
+export const useAnimeQuery = (setPage: Dispatch<SetStateAction<number>>) => {
   const router = useRouter()
   const [query, setQuery] = useState(() => {
     const initialQuery = router.query.q
@@ -11,8 +12,16 @@ export const useAnimeQuery = () => {
     return initialQuery ?? ''
   })
 
-  return {
-    query,
-    setQuery,
+  const debounced = useDebouncedCallback((value) => {
+    if (value) {
+      setQuery(value)
+      setPage(1)
+      router.push(`/?q=${value}`, undefined, { shallow: true })
+    }
+  }, 500)
+  const updateQuery = (e: ChangeEvent<HTMLInputElement>) => {
+    debounced(e.target.value)
   }
+
+  return { query, updateQuery }
 }

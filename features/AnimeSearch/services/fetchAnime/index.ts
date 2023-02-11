@@ -1,9 +1,5 @@
-import {
-  AnimeFilterResultsProps,
-  AnimeFullResultsProps,
-  AnimeRecommendationResponseProps,
-} from 'features/AnimeSearch/types'
 import ky from 'ky-universal'
+import { AnimeFilterResultsProps, AnimeFullResultsProps } from 'types'
 import { JIKAN_DOMAIN } from 'utils/constant'
 
 export const fetchQueriedAnimes = async (
@@ -22,8 +18,3 @@ export const fetchQueriedAnimes = async (
     })),
   }
 }
-
-export const fetchRecomendedAnimes =
-  async (): Promise<AnimeRecommendationResponseProps> => {
-    return await ky(`${JIKAN_DOMAIN}/recommendations/anime`).json()
-  }

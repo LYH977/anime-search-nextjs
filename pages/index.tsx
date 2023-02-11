@@ -1,14 +1,11 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
-import { useRouter } from 'next/router'
-import { ChangeEvent, useRef, useState } from 'react'
+import { useState } from 'react'
 
 import { Pagination, SearchBar } from 'components'
 import { AnimeCard } from 'features/AnimeSearch/components'
 import { useAnimeList, useAnimeQuery } from 'features/AnimeSearch/hooks'
-import { AnimeFilterResultsProps, AnimeFullResultsProps, AnimeRecommendationResponseProps, } from 'features/AnimeSearch/types'
-
-import { useDebouncedCallback } from 'use-debounce';
+import { AnimeFilterResultsProps, AnimeFullResultsProps, AnimeRecommendationResponseProps } from 'types'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -60,42 +57,10 @@ export async function getServerSideProps({ resolvedUrl }: any) {
 
 }
 
-
 export default function Home(serverProps: AnimeFilterResultsProps) {
-  const router = useRouter()
-  const initiateData = useRef(serverProps.totalPages === 0 ? undefined : serverProps)
-  // const [query, setQuery] = useState(() => {
-  //   const initialQuery = router.query.q
-  //   if (Array.isArray(initialQuery)) {
-  //     return initialQuery[0]
-  //   }
-  //   return initialQuery ?? ''
-  // })
-
-  const { query, setQuery } = useAnimeQuery()
   const [page, setPage] = useState(1)
-
-  const { data: clientData, isFetching } = useAnimeList(query, page, initiateData.current)
-  const myData = clientData ?? serverProps
-
-  const animesLength = myData.animes.length
-  const resultText = `${animesLength} result${animesLength > 1 ? 's' : ''} for "${query}"`
-  const heading = clientData ? resultText : 'Anime Recommendation'
-
-
-  const debounced = useDebouncedCallback(value => {
-    if (value) {
-      setQuery(value)
-      setPage(1)
-      router.push(`/?q=${value}`, undefined, { shallow: true })
-    }
-
-  }, 500)
-  const updateQuery = (e: ChangeEvent<HTMLInputElement>) => {
-    debounced(e.target.value)
-  }
-
-
+  const { query, updateQuery } = useAnimeQuery(setPage)
+  const { isFetching, title, myData, hasPages } = useAnimeList(query, page, serverProps)
   return (
     <>
       <Head>
@@ -109,9 +74,8 @@ export default function Home(serverProps: AnimeFilterResultsProps) {
         <SearchBar placeholder="Search Animes..."
           onChange={ updateQuery } id='searchBar' defaultValue={ query } isLoading={ isFetching }
         />
-
         <p className='self-start mt-4 '>
-          { heading }
+          { title }
         </p>
 
         <div className='grid gap-8 py-4 mb-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4' >
@@ -122,7 +86,7 @@ export default function Home(serverProps: AnimeFilterResultsProps) {
           ) }
         </div>
 
-        { myData.totalPages > 0 && myData.animes.length > 0 && <Pagination currentPage={ page } totalPages={ myData.totalPages } setPage={ setPage } /> }
+        { hasPages && <Pagination currentPage={ page } totalPages={ myData.totalPages } setPage={ setPage } /> }
       </main>
     </>
   )
