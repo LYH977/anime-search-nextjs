@@ -10,7 +10,6 @@ export type AnimeFullResultsProps = {
 }
 
 export type AnimeSingleResultProps = {
-  [key: string]: any
   mal_id: number
   url: string
   images: {
@@ -30,7 +29,8 @@ export type AnimeSingleResultProps = {
   score: null | number
   rank: null | number
   popularity: null | number
-  synopsis: null | number
+  synopsis: null | string
+  episodes: null | number
   genres: {
     mal_id: number
     type: string
@@ -53,7 +53,6 @@ export type AnimeFilterResultsProps = {
 export type AnimeRecommendationResponseProps = {
   pagination: Pick<PaginationProps, 'last_visible_page' | 'has_next_page'>
   data: {
-    [key: string]: any
     entry: AnimeRecommendationSingleResultProps[]
   }[]
 }
