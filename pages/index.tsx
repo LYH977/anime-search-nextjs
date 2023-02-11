@@ -28,10 +28,11 @@ export async function getServerSideProps({ resolvedUrl }: any) {
   }
   const data: any = []
   const uniqueMap: { [key: string]: any } = {}
-
-  const response = await fetch('https://api.jikan.moe/v4/recommendations/anime')
+  const TOTAL_RECOMMENDATION_PAGE = 20
+  const page = Math.floor(Math.random() * TOTAL_RECOMMENDATION_PAGE) + 1
+  const response = await fetch(`https://api.jikan.moe/v4/recommendations/anime?page=${page}`)
   const animes: AnimeRecommendationResponseProps = await response.json()
-  for (const temp of animes.data.slice(0, 10)) {
+  for (const temp of animes.data) {
     temp.entry.forEach(({ mal_id, title, images: { jpg: { large_image_url } } }) => {
       if (!uniqueMap[mal_id]) {
         uniqueMap[mal_id] = true
