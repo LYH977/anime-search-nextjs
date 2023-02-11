@@ -51,8 +51,6 @@ export async function getServerSideProps({ resolvedUrl }: any) {
     }
   }
 
-
-
 }
 
 export default function Home(serverProps: AnimeFilterResultsProps) {

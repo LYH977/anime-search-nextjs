@@ -9,7 +9,7 @@ import { AnimeSingleResultProps } from 'types'
 
 export async function getStaticPaths() {
     return {
-        paths: [{ params: { id: '1' } }],
+        paths: [],
         fallback: 'blocking'
     }
 }
