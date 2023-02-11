@@ -1,17 +1,18 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
-import { AnimeCard } from 'features/AnimeSearch/components'
-import { useAnimeList } from 'features/AnimeSearch/hooks'
-import { ChangeEvent, useRef, useState } from 'react'
-import { Pagination, SearchBar } from 'components'
-import { useDebouncedCallback } from 'use-debounce';
-import { AnimeFilterResultsProps, AnimeFullResultsProps, AnimeRecommendationResponseProps, } from 'features/AnimeSearch/types'
 import { useRouter } from 'next/router'
+import { ChangeEvent, useRef, useState } from 'react'
+
+import { Pagination, SearchBar } from 'components'
+import { AnimeCard } from 'features/AnimeSearch/components'
+import { useAnimeList, useAnimeQuery } from 'features/AnimeSearch/hooks'
+import { AnimeFilterResultsProps, AnimeFullResultsProps, AnimeRecommendationResponseProps, } from 'features/AnimeSearch/types'
+
+import { useDebouncedCallback } from 'use-debounce';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export async function getServerSideProps({ resolvedUrl }: any) {
-
   const queryParam = resolvedUrl.match(/q=[^&]*(&|$)/)
   if (queryParam) {
     const query = queryParam[0].slice(2).replace('&', '')
@@ -63,21 +64,24 @@ export async function getServerSideProps({ resolvedUrl }: any) {
 export default function Home(serverProps: AnimeFilterResultsProps) {
   const router = useRouter()
   const initiateData = useRef(serverProps.totalPages === 0 ? undefined : serverProps)
-  const [query, setQuery] = useState(() => {
-    const initialQuery = router.query.q
-    if (Array.isArray(initialQuery)) {
-      return initialQuery[0]
-    }
-    return initialQuery ?? ''
-  })
+  // const [query, setQuery] = useState(() => {
+  //   const initialQuery = router.query.q
+  //   if (Array.isArray(initialQuery)) {
+  //     return initialQuery[0]
+  //   }
+  //   return initialQuery ?? ''
+  // })
+
+  const { query, setQuery } = useAnimeQuery()
   const [page, setPage] = useState(1)
-  const { data: clientData, isLoading, isFetching } = useAnimeList(query, page, initiateData.current)
+
+  const { data: clientData, isFetching } = useAnimeList(query, page, initiateData.current)
   const myData = clientData ?? serverProps
+
   const animesLength = myData.animes.length
   const resultText = `${animesLength} result${animesLength > 1 ? 's' : ''} for "${query}"`
   const heading = clientData ? resultText : 'Anime Recommendation'
 
-  // console.log({ clientData, serverProps, data: myData })
 
   const debounced = useDebouncedCallback(value => {
     if (value) {

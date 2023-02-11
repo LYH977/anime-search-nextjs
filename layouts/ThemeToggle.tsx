@@ -1,7 +1,8 @@
 import { Moon, Sun } from 'assets'
+import { ThemeProps } from 'layouts'
 import React from 'react'
 
-export const ThemeToggle = ({ isDarkMode, toggleDarkMode }: any) => {
+export const ThemeToggle = ({ isDarkMode, toggleDarkMode }: ThemeProps) => {
 
     return (
         <button

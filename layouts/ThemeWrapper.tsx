@@ -2,7 +2,12 @@ import { useState } from "react"
 import Navbar from "./Navbar"
 import { ThemeBackground } from "./ThemeBackground"
 
-export const Primary = () => {
+export type ThemeProps = {
+    isDarkMode: boolean
+    toggleDarkMode: () => void
+}
+
+export const ThemeWrapper = () => {
     const [isDarkMode, setisDarkMode] = useState(false)
 
     return (
