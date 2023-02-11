@@ -16,7 +16,7 @@ export const PageNumbers = ({ currentPage, totalPages, setPage }: PaginationProp
                     : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700'
                 return (
                     <li key={ pageNumber }>
-                        <a href='#' aria-current={ ariaCurrent } onClick={ () => setPage(pageNumber) } className={ `px-3 py-2 leading-tight isolate ${style}` }>{ pageNumber }</a>
+                        <a href='#' aria-current={ ariaCurrent } onClick={ () => setPage(pageNumber) } className={ `px-3 py-2 leading-tight mr-1 isolate ${style}` }>{ pageNumber }</a>
                     </li>
                 )
             }) }</>

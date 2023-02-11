@@ -40,13 +40,13 @@ const Anime = ({ anime }: AnimeProps) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main className='mx-auto px-4 pb-4 center flex-col max-w-5xl'>
+            <div className='mx-auto px-4 pb-4 center flex-col max-w-5xl'>
                 <div className='center flex-col gap-4 md:flex-row md:items-start'>
                     <Image src={ anime.data.images.jpg.large_image_url } alt={ anime.data.title } width={ 200 } height={ 200 } className='isolate' />
                     <Article anime={ anime.data } />
                 </div>
                 <Button extraClassName='mt-4 mr-auto' onClick={ () => { Router.back() } }>BACK</Button>
-            </main>
+            </div>
         </>
     )
 }

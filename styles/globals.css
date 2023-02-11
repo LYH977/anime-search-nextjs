@@ -9,7 +9,7 @@
     align-items: center;
   }
 
-  .primaryColor {
+  .primaryBgColor {
     background-image: linear-gradient(
       to right,
       rgb(29, 78, 216),

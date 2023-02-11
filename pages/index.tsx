@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import { Inter } from '@next/font/google'
 import { useState } from 'react'
 
 import { Pagination, SearchBar } from 'components'
@@ -7,7 +6,6 @@ import { AnimeCard } from 'features/AnimeSearch/components'
 import { useAnimeList, useAnimeQuery } from 'features/AnimeSearch/hooks'
 import { AnimeFilterResultsProps, AnimeFullResultsProps, AnimeRecommendationResponseProps } from 'types'
 
-const inter = Inter({ subsets: ['latin'] })
 
 export async function getServerSideProps({ resolvedUrl }: any) {
   const queryParam = resolvedUrl.match(/q=[^&]*(&|$)/)
@@ -69,7 +67,7 @@ export default function Home(serverProps: AnimeFilterResultsProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='mx-auto px-4 pb-4 center flex-col max-w-5xl'>
+      <div className='mx-auto px-4 pb-4 center flex-col max-w-5xl'>
         <h1 className='font-bold my-4 text-lg'>Search your next favourite anime here!</h1>
         <SearchBar placeholder="Search Animes..."
           onChange={ updateQuery } id='searchBar' defaultValue={ query } isLoading={ isFetching }
@@ -87,7 +85,7 @@ export default function Home(serverProps: AnimeFilterResultsProps) {
         </div>
 
         { hasPages && <Pagination currentPage={ page } totalPages={ myData.totalPages } setPage={ setPage } /> }
-      </main>
+      </div>
     </>
   )
 }
