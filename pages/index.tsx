@@ -66,8 +66,8 @@ export default function Home(serverProps: AnimeFilterResultsProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className='mx-auto px-4 pb-4 center flex-col max-w-5xl'>
-        <h1 className='font-bold my-4 text-lg'>Search your next favourite anime here!</h1>
+      <div className='mx-auto px-4 pb-4 center flex-col max-w-5xl bg-white'>
+        <h1 className='font-bold text-lg my-4'>Search your next favourite anime here!</h1>
         <SearchBar placeholder="Search Animes..."
           onChange={ updateQuery } id='searchBar' defaultValue={ query } isLoading={ isFetching }
         />
