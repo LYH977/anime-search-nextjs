@@ -14,7 +14,7 @@ export const fetchQueriedAnimes = async (
     totalItems: result.pagination.items.total,
     timestamp: Date.now(),
     animes: result.data.map((anime) => ({
-      imageUrl: anime.images.jpg.large_image_url,
+      imageUrl: anime.images.webp.large_image_url,
       mal_id: anime.mal_id,
       title: anime.title_english ?? anime.title,
     })),

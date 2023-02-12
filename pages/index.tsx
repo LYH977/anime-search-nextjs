@@ -34,8 +34,16 @@ export async function getServerSideProps({ resolvedUrl }: any) {
   const page = Math.floor(Math.random() * TOTAL_RECOMMENDATION_PAGE) + 1
   const response = await fetch(`https://api.jikan.moe/v4/recommendations/anime?page=${page}`)
   const animes: AnimeRecommendationResponseProps = await response.json()
-  for (const temp of animes.data) {
-    temp.entry.forEach(({ mal_id, title, images: { webp: { image_url } } }) => {
+  const totalRecommendation = animes.data.length
+
+  const selectedIndexes = [];
+  while (selectedIndexes.length < 8) {
+    var r = Math.floor(Math.random() * totalRecommendation);
+    if (selectedIndexes.indexOf(r) === -1) selectedIndexes.push(r);
+  }
+
+  for (const index of selectedIndexes) {
+    animes.data[index].entry.forEach(({ mal_id, title, images: { webp: { image_url } } }) => {
       if (!uniqueMap[mal_id]) {
         uniqueMap[mal_id] = true
         data.push({
@@ -45,8 +53,9 @@ export async function getServerSideProps({ resolvedUrl }: any) {
         })
       }
     })
-
   }
+
+
   return {
     props: {
       animes: data,
