@@ -41,7 +41,7 @@ const Anime = ({ anime }: AnimeProps) => {
             <DefaultHeader title={ title } description={ description } />
             <div className='mx-auto px-4 pb-4 center flex-col max-w-5xl bg-white'>
                 <div className='center flex-col gap-4 md:flex-row md:items-start'>
-                    <Image src={ anime.images.jpg.large_image_url } alt={ anime.title } width={ 200 } height={ 200 } className='isolate' />
+                    <Image src={ anime.images.webp.large_image_url } alt={ anime.title } width={ 200 } height={ 200 } className='isolate' />
                     <Article anime={ anime } />
                 </div>
                 <Button extraClassName='mt-4 mr-auto' onClick={ () => { Router.back() } }>BACK</Button>

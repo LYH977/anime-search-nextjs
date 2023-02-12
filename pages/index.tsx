@@ -18,7 +18,7 @@ export async function getServerSideProps({ resolvedUrl }: any) {
         totalPages: queryResult.pagination.last_visible_page,
         totalItems: queryResult.pagination.items.total,
         animes: queryResult.data.map((anime) => ({
-          imageUrl: anime.images.jpg.large_image_url,
+          imageUrl: anime.images.webp.image_url,
           mal_id: anime.mal_id,
           title: anime.title_english ?? anime.title,
         })),
@@ -35,13 +35,13 @@ export async function getServerSideProps({ resolvedUrl }: any) {
   const response = await fetch(`https://api.jikan.moe/v4/recommendations/anime?page=${page}`)
   const animes: AnimeRecommendationResponseProps = await response.json()
   for (const temp of animes.data) {
-    temp.entry.forEach(({ mal_id, title, images: { jpg: { large_image_url } } }) => {
+    temp.entry.forEach(({ mal_id, title, images: { webp: { image_url } } }) => {
       if (!uniqueMap[mal_id]) {
         uniqueMap[mal_id] = true
         data.push({
           mal_id,
           title,
-          imageUrl: large_image_url
+          imageUrl: image_url
         })
       }
     })
