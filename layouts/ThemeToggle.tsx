@@ -11,8 +11,8 @@ export const ThemeToggle = ({ isDarkMode, toggleDarkMode }: ThemeProps) => {
             onClick={ toggleDarkMode }
         >
             <div
-                className={ `isolate z-10 w-8 h-8 relative rounded-full transition duration-500 transform  p-1 text-white ${isDarkMode ? 'bg-gray-700 translate-x-4' : 'bg-red-500 -translate-x-2'}` }>
-                <span className="isolate"></span>{ isDarkMode ? <Moon /> : <Sun /> }
+                className={ `z-10 w-8 h-8 relative rounded-full transition duration-500 transform  p-1 text-white ${isDarkMode ? 'bg-gray-700 translate-x-4' : 'bg-red-500 -translate-x-2'}` }>
+                { isDarkMode ? <Moon /> : <Sun /> }
             </div>
         </button>
     )

@@ -14,12 +14,17 @@ export const useAnimeList = (
     keepPreviousData: true,
   })
 
-  const myData = clientData ?? serverProps
-  const animesLength = myData.animes.length
-  const resultText = `${animesLength} result${
-    animesLength > 1 ? 's' : ''
-  } for "${query}"`
-  const title = clientData ? resultText : 'Anime Recommendation'
+  const isCSR = clientData && clientData.timestamp > serverProps.timestamp
+
+  const myData = isCSR ? clientData : serverProps
+  const animesLength = myData.totalItems
+  const postfix = animesLength > 1 ? 's' : ''
+
+  const resultText = isFetching
+    ? `Looking for "${query}"`
+    : `${animesLength} result${postfix} for "${query}"`
+
+  const title = isCSR ? resultText : 'Anime Recommendation'
 
   const hasPages = myData.totalPages > 0 && myData.animes.length > 0
 

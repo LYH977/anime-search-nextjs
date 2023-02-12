@@ -1,11 +1,11 @@
 import React from 'react'
-import Head from 'next/head'
 import Image from 'next/image'
 import Router from 'next/router'
 
 import { Button } from 'components'
 import { Article } from 'features/AnimeDetails/components'
 import { AnimeSingleResultProps } from 'types'
+import { DefaultHeader } from 'metadata/DefaultHeader'
 
 export async function getStaticPaths() {
     return {
@@ -38,12 +38,7 @@ const Anime = ({ anime }: AnimeProps) => {
     const description = anime.synopsis ?? anime.title
     return (
         <>
-            <Head>
-                <title>{ title }</title>
-                <meta name="description" content={ description } />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+            <DefaultHeader title={ title } description={ description } />
             <div className='mx-auto px-4 pb-4 center flex-col max-w-5xl bg-white'>
                 <div className='center flex-col gap-4 md:flex-row md:items-start'>
                     <Image src={ anime.images.jpg.large_image_url } alt={ anime.title } width={ 200 } height={ 200 } className='isolate' />

@@ -47,7 +47,9 @@ export type AnimeItemProps = {
 
 export type AnimeFilterResultsProps = {
   totalPages: number
+  totalItems: number
   animes: AnimeItemProps[]
+  timestamp: number
 }
 
 export type AnimeRecommendationResponseProps = {
