@@ -24,7 +24,7 @@ export const useAnimeList = (
     ? `Looking for "${query}"`
     : `${animesLength} result${postfix} for "${query}"`
 
-  const title = isCSR ? resultText : 'Anime Recommendation'
+  const title = isCSR ? resultText : 'Anime Recommendation(limited)'
 
   const hasPages = myData.totalPages > 0 && myData.animes.length > 0
 

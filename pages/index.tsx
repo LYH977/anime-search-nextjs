@@ -37,7 +37,7 @@ export async function getServerSideProps({ resolvedUrl }: any) {
   const totalRecommendation = animes.data.length
 
   const selectedIndexes = [];
-  while (selectedIndexes.length < 8) {
+  while (selectedIndexes.length < 1) {
     var r = Math.floor(Math.random() * totalRecommendation);
     if (selectedIndexes.indexOf(r) === -1) selectedIndexes.push(r);
   }
