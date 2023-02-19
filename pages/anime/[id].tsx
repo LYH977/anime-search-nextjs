@@ -9,7 +9,7 @@ import { DefaultHeader } from 'metadata/DefaultHeader'
 export async function getStaticPaths() {
     return {
         paths: [],
-        fallback: 'blocking'
+        fallback: 'blocking',
     }
 }
 
@@ -18,13 +18,13 @@ export async function getStaticProps({ params: { id } }: any) {
     const data = await response.json()
     if (data.hasOwnProperty('error')) {
         return {
-            notFound: true
+            notFound: true,
         }
     }
     return {
         props: {
-            anime: data.data
-        }
+            anime: data.data,
+        },
     }
 }
 
@@ -33,7 +33,9 @@ type AnimeProps = {
 }
 
 const imgProps = {
-    width: 200, height: 300, className: 'isolate'
+    width: 200,
+    height: 300,
+    className: 'isolate h-[300px] max-w-none object-cover',
 }
 
 const Anime = ({ anime }: AnimeProps) => {
@@ -45,13 +47,28 @@ const Anime = ({ anime }: AnimeProps) => {
             <div className='mx-auto px-4 pb-4 center flex-col max-w-5xl bg-white'>
                 <div className='center flex-col gap-4 md:flex-row md:items-start'>
                     <picture>
-                        <source srcSet={ anime.images.webp.image_url } type="image/webp" { ...imgProps } />
-                        <source srcSet={ anime.images.jpg.image_url } type="image/jpeg" { ...imgProps } />
+                        <source
+                            srcSet={ anime.images.webp.image_url }
+                            type='image/webp'
+                            { ...imgProps }
+                        />
+                        <source
+                            srcSet={ anime.images.jpg.image_url }
+                            type='image/jpeg'
+                            { ...imgProps }
+                        />
                         <img src={ anime.images.jpg.image_url } alt={ title } { ...imgProps } />
                     </picture>
                     <Article anime={ anime } />
                 </div>
-                <Button extraClassName='mt-4 mr-auto' onClick={ () => { Router.back() } }>BACK</Button>
+                <Button
+                    extraClassName='mt-4 mr-auto'
+                    onClick={ () => {
+                        Router.back()
+                    } }
+                >
+                    BACK
+                </Button>
             </div>
         </>
     )
