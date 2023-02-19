@@ -42,7 +42,10 @@ export type AnimeSingleResultProps = {
 export type AnimeItemProps = {
   mal_id: number
   title: string
-  imageUrl: string
+  imageUrl: {
+    jpg: string
+    webp: string
+  }
 }
 
 export type AnimeFilterResultsProps = {

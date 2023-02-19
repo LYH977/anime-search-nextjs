@@ -37,19 +37,22 @@ export async function getServerSideProps({ resolvedUrl }: any) {
   const totalRecommendation = animes.data.length
 
   const selectedIndexes = [];
-  while (selectedIndexes.length < 1) {
+  while (selectedIndexes.length < 10 && totalRecommendation > selectedIndexes.length) {
     var r = Math.floor(Math.random() * totalRecommendation);
     if (selectedIndexes.indexOf(r) === -1) selectedIndexes.push(r);
   }
 
   for (const index of selectedIndexes) {
-    animes.data[index].entry.forEach(({ mal_id, title, images: { webp: { image_url } } }) => {
+    animes.data[index].entry.forEach(({ mal_id, title, images }) => {
       if (!uniqueMap[mal_id]) {
         uniqueMap[mal_id] = true
         data.push({
           mal_id,
           title,
-          imageUrl: image_url
+          imageUrl: {
+            jpg: images.jpg.image_url,
+            webp: images.webp.image_url
+          }
         })
       }
     })
@@ -85,9 +88,9 @@ export default function Home(serverProps: AnimeFilterResultsProps) {
         </p>
 
         <div className='grid gap-8 py-4 mb-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4' >
-          { myData.animes.map(({ title, mal_id, imageUrl }) =>
+          { myData.animes.map(({ title, mal_id, imageUrl }, index) =>
           (
-            <AnimeCard key={ mal_id } id={ mal_id } title={ title } imageUrl={ imageUrl } />
+            <AnimeCard key={ mal_id } mal_id={ mal_id } title={ title } imageUrl={ imageUrl } loading={ index < 2 ? 'eager' : 'lazy' } />
           )
           ) }
         </div>
