@@ -3,14 +3,17 @@ import Head from 'next/head'
 type DefaultHeaderProps = {
   title: string;
   description?: string
+  previewImageUrl?: string;
 }
 
-export const DefaultHeader = ({ title, description }: DefaultHeaderProps) => {
+export const DefaultHeader = ({ title, description, previewImageUrl }: DefaultHeaderProps) => {
   const MY_NAME = 'Lee Yuan Hooi'
   const TWITTER_ID = '@ho0i97'
   const SITE_URL = 'https://anime-search-nextjs.vercel.app/'
-  const INTRO_IMG = SITE_URL + 'anime.png'
-  const META_TITLE = description ?? `Search your next favourite anime here!`
+  const LOGO_IMG = 'anime.png'
+  const PREVIEW_IMG = previewImageUrl ?? SITE_URL + LOGO_IMG
+  const META_TITLE = title
+  const META_DESC = description ?? 'Search your next favourite anime here!'
   const TITLE = 'title'
   const OG = 'og'
   const TWITTER = 'twitter'
@@ -33,13 +36,13 @@ export const DefaultHeader = ({ title, description }: DefaultHeaderProps) => {
       <meta name={ `${TWITTER}:${TITLE}` } content={ META_TITLE }></meta>
       <meta property={ `${TWITTER}:${TITLE}` } content={ META_TITLE }></meta>
 
-      <meta name={ DESC } content={ META_TITLE } />
+      <meta name={ DESC } content={ META_DESC } />
 
-      <meta name={ `${OG}:${DESC}` } content={ META_TITLE }></meta>
-      <meta property={ `${OG}:${DESC}` } content={ META_TITLE }></meta>
+      <meta name={ `${OG}:${DESC}` } content={ META_DESC }></meta>
+      <meta property={ `${OG}:${DESC}` } content={ META_DESC }></meta>
 
-      <meta name={ `${TWITTER}:${DESC}` } content={ META_TITLE }></meta>
-      <meta property={ `${TWITTER}:${DESC}` } content={ META_TITLE }></meta>
+      <meta name={ `${TWITTER}:${DESC}` } content={ META_DESC }></meta>
+      <meta property={ `${TWITTER}:${DESC}` } content={ META_DESC }></meta>
 
       <meta name={ AUTHOR } content={ MY_NAME }></meta>
       <meta property={ AUTHOR } content={ MY_NAME }></meta>
@@ -63,14 +66,19 @@ export const DefaultHeader = ({ title, description }: DefaultHeaderProps) => {
       <meta name={ `${TWITTER}:${CREATOR}` } content={ TWITTER_ID } ></meta>
       <meta property={ `${TWITTER}:${CREATOR}` } content={ TWITTER_ID } ></meta>
 
-      <meta name={ `${TWITTER}:${IMG}:${SRC}` } content={ INTRO_IMG } ></meta>
-      <meta property={ `${TWITTER}:${IMG}:${SRC}` } content={ INTRO_IMG } ></meta>
+      <meta name={ `${TWITTER}:${IMG}:${SRC}` } content={ PREVIEW_IMG } ></meta>
+      <meta property={ `${TWITTER}:${IMG}:${SRC}` } content={ PREVIEW_IMG } ></meta>
 
-      <meta name={ `${OG}:${IMG}` } content={ INTRO_IMG } ></meta>
+      <meta property={ `${OG}:${IMG}` } content={ PREVIEW_IMG } ></meta>
+
+      { previewImageUrl && <><meta property={ `${OG}:${IMG}:width` } content="200" />
+        <meta property={ `${OG}:${IMG}:height` } content="200" />
+        <meta property={ `${OG}:${IMG}:aspect_ratio` } content="1:1" /></> }
+
       <meta charSet='utf-8'></meta>
       <meta name="viewport" content='width=device-width' ></meta>
 
-      <link rel="icon" href="/anime.png" />
+      <link rel="icon" href={ `/${LOGO_IMG}` } />
     </Head>
 
 

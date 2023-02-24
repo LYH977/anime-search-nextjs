@@ -15,7 +15,8 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { id } }: any) {
     const response = await fetch(`https://api.jikan.moe/v4/anime/${id}/full`)
-    const data = await response.json()
+    const data: { data: AnimeSingleResultProps, error?: any } = await response.json()
+
     if (data.hasOwnProperty('error')) {
         return {
             notFound: true,
@@ -41,9 +42,11 @@ const imgProps = {
 const Anime = ({ anime }: AnimeProps) => {
     const title = `NextAnime | ${anime.title}`
     const description = anime.synopsis ?? anime.title
+    const previewImageUrl = anime.images.jpg.image_url
+
     return (
         <>
-            <DefaultHeader title={ title } description={ description } />
+            <DefaultHeader title={ title } description={ description } previewImageUrl={ previewImageUrl } />
             <div className='mx-auto px-4 pb-4 center flex-col max-w-5xl bg-white'>
                 <div className='center flex-col gap-4 md:flex-row md:items-start'>
                     <picture>
