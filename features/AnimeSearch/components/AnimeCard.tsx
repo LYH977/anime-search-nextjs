@@ -12,12 +12,13 @@ const imgProps = {
 export const AnimeCard = ({ title, mal_id, imageUrl, loading }: AnimeItemProps & Pick<HTMLImageElement, 'loading'>) => {
     const animeId = 'anime-' + mal_id
     const router = useRouter()
-    const navigateToDetailPage = () => {
+    const navigateToDetailPage = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        e.preventDefault()
         router.push(`/anime/${mal_id}`, undefined, { shallow: true })
     }
 
     return (
-        <div className='shadow-lg shadow-[#2e3d0d] pb-4 w-[200px] h-[400px] rounded-lg overflow-hidden cursor-pointer ' tabIndex={ 0 } title={ title } aria-labelledby={ animeId } onClick={ navigateToDetailPage }>
+        <a className='shadow-lg shadow-[#2e3d0d] pb-4 w-[200px] h-[400px] rounded-lg overflow-hidden cursor-pointer' tabIndex={ 0 } title={ title } aria-labelledby={ animeId } href={ `/anime/${mal_id}` } onClick={ navigateToDetailPage }>
             <div className='overflow-hidden'>
                 <picture>
                     <source srcSet={ imageUrl.webp } type="image/webp" { ...imgProps } />
@@ -26,7 +27,7 @@ export const AnimeCard = ({ title, mal_id, imageUrl, loading }: AnimeItemProps &
                 </picture>
             </div>
             <p id={ animeId } className='px-2 pt-2 line-clamp-2 overflow-hidden'>{ title }</p>
-        </div>
+        </a>
     )
 }
 
