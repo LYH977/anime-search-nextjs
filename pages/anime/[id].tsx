@@ -1,10 +1,15 @@
 import React from 'react'
 import Router from 'next/router'
+import { I18nProps } from "next-rosetta";
+import type { GetStaticProps } from "next";
+import { MyLocale } from 'i18n'
+import { ParsedUrlQuery } from 'querystring'
 
 import { Button } from 'components'
 import { Article } from 'features/AnimeDetails/components'
 import { AnimeSingleResultProps } from 'types'
 import { DefaultHeader } from 'metadata/DefaultHeader'
+import { useMyI18n } from 'services/useMyI18n'
 
 export async function getStaticPaths() {
     return {
@@ -12,26 +17,25 @@ export async function getStaticPaths() {
         fallback: 'blocking',
     }
 }
+type AnimeProps = {
+    anime: AnimeSingleResultProps
+} & I18nProps<MyLocale>
 
-export async function getStaticProps({ params: { id } }: any) {
-    const response = await fetch(`https://api.jikan.moe/v4/anime/${id}/full`)
+export const getStaticProps: GetStaticProps<AnimeProps> = async ({ params, locale, defaultLocale }) => {
+    const myLocale = locale || defaultLocale;
+    const { table = {} } = await import(`../../i18n/${myLocale}`);
+    const response = await fetch(`https://api.jikan.moe/v4/anime/${(params as ParsedUrlQuery).id}/full`)
     const data: { data: AnimeSingleResultProps, error?: any } = await response.json()
 
-    if (data.hasOwnProperty('error')) {
-        return {
-            notFound: true,
-        }
-    }
+    if (data.hasOwnProperty('error')) { return { notFound: true } }
     return {
         props: {
             anime: data.data,
+            table
         },
     }
 }
 
-type AnimeProps = {
-    anime: AnimeSingleResultProps
-}
 
 const imgProps = {
     width: 200,
@@ -40,6 +44,7 @@ const imgProps = {
 }
 
 const Anime = ({ anime }: AnimeProps) => {
+    const { t } = useMyI18n();
     const title = `NextAnime | ${anime.title}`
     const description = anime.synopsis ?? anime.title
     const previewImageUrl = anime.images.jpg.image_url
@@ -70,7 +75,7 @@ const Anime = ({ anime }: AnimeProps) => {
                         Router.back()
                     } }
                 >
-                    BACK
+                    { t('common.back') }
                 </Button>
             </div>
         </>

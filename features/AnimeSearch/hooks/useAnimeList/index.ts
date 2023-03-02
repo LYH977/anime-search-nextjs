@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { fetchQueriedAnimes } from 'features/AnimeSearch/services'
-import { AnimeFilterResultsProps } from 'types'
+import { useMyI18n } from 'services/useMyI18n'
+import type { AnimeFilterResultsProps } from 'types'
 
 export const useAnimeList = (
   query: string,
@@ -13,18 +14,19 @@ export const useAnimeList = (
     enabled: !!query,
     keepPreviousData: true,
   })
+  const { t } = useMyI18n()
 
   const isCSR = clientData && clientData.timestamp > serverProps.timestamp
 
   const myData = isCSR ? clientData : serverProps
   const animesLength = myData.totalItems
-  const postfix = animesLength > 1 ? 's' : ''
+  const enPostfix = animesLength > 1 ? 's' : ''
 
   const resultText = isFetching
-    ? `Looking for "${query}"`
-    : `${animesLength} result${postfix} for "${query}"`
+    ? t('home.searchingText', { query })
+    : t('home.resultText', { total: animesLength, postfix: enPostfix, query })
 
-  const title = isCSR ? resultText : 'Anime Recommendation'
+  const title = isCSR ? resultText : t('home.recommendation')
 
   const hasPages = myData.totalPages > 0 && myData.animes.length > 0
 

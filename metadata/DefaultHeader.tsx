@@ -1,4 +1,7 @@
+import { LANGUAGES } from 'i18n';
 import Head from 'next/head'
+import { useRouter } from 'next/router';
+import { extractMatchedValues } from 'utils/extractor';
 
 type DefaultHeaderProps = {
   title: string;
@@ -7,6 +10,13 @@ type DefaultHeaderProps = {
 }
 
 export const DefaultHeader = ({ title, description, previewImageUrl }: DefaultHeaderProps) => {
+  const { pathname, query, } = useRouter()
+  const queryRegex = /\[(.*?)\]/g
+  let newPathname = pathname
+  const queries = extractMatchedValues(pathname, queryRegex)
+  queries.forEach(q => {
+    newPathname = newPathname.replace(`[${q}]`, query[q] as string)
+  })
   const MY_NAME = 'Lee Yuan Hooi'
   const TWITTER_ID = '@ho0i97'
   const SITE_URL = 'https://anime-search-nextjs.vercel.app/'
@@ -79,6 +89,9 @@ export const DefaultHeader = ({ title, description, previewImageUrl }: DefaultHe
       <meta name="viewport" content='width=device-width' ></meta>
 
       <link rel="icon" href={ `/${LOGO_IMG}` } />
+
+      { LANGUAGES.map(lang => <link key={ lang } rel="alternate" hrefLang={ lang } href={ SITE_URL + lang + newPathname } />) }
+      <link rel="alternate" hrefLang="x-default" href={ SITE_URL + 'en' + newPathname } />
     </Head>
 
 

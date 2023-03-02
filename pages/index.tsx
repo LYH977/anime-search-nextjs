@@ -1,13 +1,26 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { I18nProps } from "next-rosetta";
+import type { GetServerSideProps } from "next";
+import { LanguageType, MyLocale } from 'i18n'
+import { useRouter } from 'next/router'
 
 import { Pagination, SearchBar } from 'components'
 import { AnimeCard } from 'features/AnimeSearch/components'
 import { useAnimeList, useAnimeQuery, useSearchBar } from 'features/AnimeSearch/hooks'
 import { AnimeFilterResultsProps, AnimeFullResultsProps, AnimeRecommendationResponseProps } from 'types'
 import { DefaultHeader } from 'metadata/DefaultHeader'
+import { useMyI18n } from 'services/useMyI18n'
+
+type HomeProps = {
+  results: AnimeFilterResultsProps
+  initialLocale: LanguageType
+} & I18nProps<MyLocale>;
 
 
-export async function getServerSideProps({ resolvedUrl }: any) {
+export const getServerSideProps: GetServerSideProps<HomeProps> = async ({ resolvedUrl, locale, defaultLocale }) => {
+  const initialLocale = (locale || defaultLocale || 'en') as LanguageType
+  const { table = {} } = await import(`../i18n/${initialLocale}`);
+
   const queryParam = resolvedUrl.match(/q=[^&]*(&|$)/)
   if (queryParam) {
     const query = queryParam[0].slice(2).replace('&', '')
@@ -15,14 +28,18 @@ export async function getServerSideProps({ resolvedUrl }: any) {
     const queryResult: AnimeFullResultsProps = await queryResponse.json()
     return {
       props: {
-        totalPages: queryResult.pagination.last_visible_page,
-        totalItems: queryResult.pagination.items.total,
-        animes: queryResult.data.map((anime) => ({
-          imageUrl: anime.images.webp.image_url,
-          mal_id: anime.mal_id,
-          title: anime.title_english ?? anime.title,
-        })),
-        timestamp: Date.now()
+        results: {
+          totalPages: queryResult.pagination.last_visible_page,
+          totalItems: queryResult.pagination.items.total,
+          animes: queryResult.data.map((anime) => ({
+            imageUrl: anime.images.webp.image_url,
+            mal_id: anime.mal_id,
+            title: anime.title_english ?? anime.title,
+          })),
+          timestamp: Date.now()
+        },
+        table,
+        initialLocale
       }
     }
 
@@ -61,25 +78,44 @@ export async function getServerSideProps({ resolvedUrl }: any) {
 
   return {
     props: {
-      animes: data,
-      totalPages: 0,
-      totalItems: 0,
-      timestamp: Date.now()
+      results: {
+        animes: data,
+        totalPages: 0,
+        totalItems: 0,
+        timestamp: Date.now()
+      },
+      table,
+      initialLocale
     }
   }
 
 }
 
-export default function Home(serverProps: AnimeFilterResultsProps) {
+export default function Home(serverProps: HomeProps) {
+  const { locale } = useRouter()
+  const [counter, setCounter] = useState(1)
   const [page, setPage] = useState(1)
   const { searchBarRef } = useSearchBar()
   const { query, updateQuery } = useAnimeQuery(setPage)
-  const { isFetching, title, myData, hasPages } = useAnimeList(query, page, serverProps)
+  const { isFetching, title, myData, hasPages } = useAnimeList(query, page, serverProps.results)
+  const i18n = useMyI18n();
+  const { t } = i18n;
+
+  useEffect(() => {
+    if (locale && locale !== serverProps.initialLocale) {
+      import(`../i18n/${locale}`).then((e) => {
+        i18n.set(locale, e.table)
+        i18n.locale(locale)
+        setCounter(counter + 1)
+      })
+    }
+  }, [locale])
+
   return (
     <>
       <DefaultHeader title='NextAnime' />
       <div className='mx-auto px-4 pb-4 center flex-col max-w-5xl bg-white'>
-        <h1 className='font-bold text-lg my-4'>Search your next favourite anime here!</h1>
+        <h1 className='font-bold text-lg my-4'>{ t('home.heading') }</h1>
         <SearchBar placeholder="Search Animes..."
           onChange={ updateQuery } id='searchBar' defaultValue={ query } isLoading={ isFetching } ref={ searchBarRef }
         />
